@@ -25,7 +25,7 @@ class HolderController extends Controller
     public function store(
         StoreHolderRequest $storeHolderRequest,
         StoreHolderService $storeHolderService,
-        Holder $holder
+        Holder             $holder
     )
     {
         $data = $storeHolderRequest->validated();
@@ -34,7 +34,11 @@ class HolderController extends Controller
         return response(new HolderResource($holder));
     }
 
-    public function update(UpdateHolderRequest $updateHolderRequest, UpdateHolderService $updateHolderService, Holder $holder)
+    public function update(
+        UpdateHolderRequest $updateHolderRequest,
+        UpdateHolderService $updateHolderService,
+        Holder              $holder
+    )
     {
         $data = $updateHolderRequest->validated();
         $holder = $updateHolderService->run($data, $holder);

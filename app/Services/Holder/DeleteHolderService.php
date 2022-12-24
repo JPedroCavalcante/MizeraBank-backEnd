@@ -8,19 +8,16 @@ class DeleteHolderService
 {
     private Holder $holder;
 
-    /**
-     * @param Holder $holder
-     */
     public function __construct(Holder $holder)
     {
         $this->holder = $holder;
     }
 
-
     public function run($id)
     {
         $holder = $this->holder->where('id', $id)->firstOrFail();
 
+        $holder->accounts->delete();
         return $holder->delete();
     }
 }

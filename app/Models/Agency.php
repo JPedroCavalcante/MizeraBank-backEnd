@@ -12,7 +12,7 @@ class Agency extends Model
     use SoftDeletes;
 
     protected $fillable = [
-
+        ''
     ];
 
 

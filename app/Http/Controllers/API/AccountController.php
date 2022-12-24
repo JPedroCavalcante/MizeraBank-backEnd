@@ -7,6 +7,7 @@ use App\Http\Requests\Account\StoreAccountRequest;
 use App\Http\Requests\Account\UpdateAccountRequest;
 use App\Http\Resources\AccountResource;
 use App\Models\Account;
+use App\Services\Account\DeleteAccountService;
 use App\Services\Account\IndexAccountService;
 use App\Services\Account\StoreAccountService;
 use App\Services\Account\UpdateAccountService;
@@ -23,7 +24,7 @@ class AccountController extends Controller
     public function store(
         StoreAccountRequest $storeAccountRequest,
         StoreAccountService $storeAccountService,
-        Account $account,
+        Account             $account,
     )
     {
         $data = $storeAccountRequest->validated();
@@ -34,15 +35,18 @@ class AccountController extends Controller
     public function update(
         UpdateAccountRequest $updateAccountRequest,
         UpdateAccountService $updateAccountService,
-        $id
+        Account              $account
     )
     {
-
+        $data = $updateAccountRequest->validated();
+        $account = $updateAccountService->run($data, $account);
+        return response(new AccountResource($account));
     }
 
 
-    public function destroy($id)
+    public function destroy(DeleteAccountService $deleteAccountService ,$id)
     {
-        //
+        $deleteAccountService->run($id);
+        return response()->json([], 204);
     }
 }
