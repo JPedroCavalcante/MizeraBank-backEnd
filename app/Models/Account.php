@@ -15,8 +15,7 @@ class Account extends Model
         'account_type',
         'balance',
         'number',
-        'agency',
-        'holder_id'
+        'holder_id',
     ];
 
     public function holder()

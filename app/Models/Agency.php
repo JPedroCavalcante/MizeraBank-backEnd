@@ -12,8 +12,12 @@ class Agency extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        ''
+        'name'
     ];
 
+    public function holders()
+    {
+        return $this->hasMany(Holder::class);
+    }
 
 }

@@ -11,7 +11,6 @@ class AccountResource extends JsonResource
     {
         return [
             'number' => $this->number,
-            'agency' => $this->agency,
             'account_type' => $this->account_type,
             'balance' => $this->balance,
             'Holder' => new HolderResource($this->holder),

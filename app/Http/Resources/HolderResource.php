@@ -15,6 +15,7 @@ class HolderResource extends JsonResource
             'identifier' => $this->identifier,
             'birth_date' => Carbon::make($this->birth_date)->format('d/m/Y'),
             'phone' => $this->phone,
+            'agency' => new AgencyResource($this->agency),
         ];
     }
 }

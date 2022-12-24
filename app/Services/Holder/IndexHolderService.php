@@ -6,12 +6,6 @@ use App\Models\Holder;
 
 class IndexHolderService
 {
-    private Holder $holder;
-
-    public function __construct(Holder $holder)
-    {
-        $this->Holder = $holder;
-    }
 
     public function run($request)
     {

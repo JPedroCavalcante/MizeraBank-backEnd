@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('identifier')->unique();
             $table->date('birth_date');
             $table->string('phone');
+
+            $table->foreignId('agency_id')->constrained('agencies');
+
             $table->timestamps();
             $table->softDeletes();
         });

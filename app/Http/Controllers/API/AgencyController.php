@@ -3,58 +3,49 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Agency\StoreAgencyRequest;
+use App\Http\Requests\Agency\UpdateAgencyRequest;
+use App\Http\Resources\AgencyResource;
+use App\Models\Agency;
+use App\Services\Agency\DeleteAgencyService;
+use App\Services\Agency\IndexAgencyService;
+use App\Services\Agency\StoreAgencyService;
+use App\Services\Agency\UpdateAgencyService;
 use Illuminate\Http\Request;
 
 class AgencyController extends Controller
 {
 
-    public function index()
+    public function index(IndexAgencyService $indexAgencyService, Request $request)
     {
-        //
+        $Agencies = $indexAgencyService->run($request);
+        return AgencyResource::collection($Agencies);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(
+        StoreAgencyRequest $storeAgencyRequest,
+        StoreAgencyService $storeAgencyService
+    )
     {
-        //
+        $data = $storeAgencyRequest->validated();
+        $agency = $storeAgencyService->run($data);
+        return AgencyResource::collection($agency);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function update(
+        UpdateAgencyRequest $updateAgencyRequest,
+        UpdateAgencyService $updateAgencyService,
+        Agency              $agency,
+    )
     {
-        //
+        $data = $updateAgencyRequest->validated();
+        $agency = $updateAgencyService->run($data, $agency);
+        return AgencyResource::collection($agency);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function destroy(DeleteAgencyService $deleteAgencyService ,$id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $deleteAgencyService->run($id);
+        return response()->json([], 204);
     }
 }

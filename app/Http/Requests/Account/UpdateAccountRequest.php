@@ -24,8 +24,6 @@ class UpdateAccountRequest extends FormRequest
     public function rules()
     {
         return [
-            'number' => ['required', 'string'],
-            'agency' => ['required', 'string'],
             'account_type' => ['required', 'in:checking, saving'],
             'balance' => ['nullable', 'float'],
         ];

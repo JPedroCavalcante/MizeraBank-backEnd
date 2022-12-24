@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('holder_id')->constrained('holders');
             $table->string('number');
-            $table->string('agency');
             $table->string('account_type');
             $table->float('balance')->default(0);
+
+            $table->foreignId('holder_id')->constrained('holders');
+
             $table->timestamps();
             $table->softDeletes();
         });

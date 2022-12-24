@@ -24,7 +24,6 @@ class AccountController extends Controller
     public function store(
         StoreAccountRequest $storeAccountRequest,
         StoreAccountService $storeAccountService,
-        Account             $account,
     )
     {
         $data = $storeAccountRequest->validated();
@@ -43,8 +42,7 @@ class AccountController extends Controller
         return response(new AccountResource($account));
     }
 
-
-    public function destroy(DeleteAccountService $deleteAccountService ,$id)
+    public function destroy(DeleteAccountService $deleteAccountService, $id)
     {
         $deleteAccountService->run($id);
         return response()->json([], 204);
