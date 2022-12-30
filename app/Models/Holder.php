@@ -15,7 +15,8 @@ class Holder extends Model
         'name',
         'identifier',
         'birth_date',
-        'phone'
+        'phone',
+        'agency_id'
     ];
 
     public function accounts()

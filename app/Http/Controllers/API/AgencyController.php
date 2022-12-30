@@ -29,7 +29,7 @@ class AgencyController extends Controller
     {
         $data = $storeAgencyRequest->validated();
         $agency = $storeAgencyService->run($data);
-        return AgencyResource::collection($agency);
+        return response(new AgencyResource($agency));
     }
 
     public function update(
@@ -40,7 +40,7 @@ class AgencyController extends Controller
     {
         $data = $updateAgencyRequest->validated();
         $agency = $updateAgencyService->run($data, $agency);
-        return AgencyResource::collection($agency);
+        return response(new AgencyResource($agency));
     }
 
     public function destroy(DeleteAgencyService $deleteAgencyService ,$id)

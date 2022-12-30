@@ -27,7 +27,8 @@ class StoreAccountRequest extends FormRequest
             'number' => ['required', 'string'],
             'account_type' => ['required', 'in:checking, saving'],
             'balance' => ['nullable', 'numeric'],
-            'holder_id' => ['required', 'string', 'exists:holders,id'],
+            'holder_id' => ['required', 'integer', 'exists:holders,id'],
+            'agency_id' => ['required', 'integer', 'exists:agencies,id' ]
         ];
     }
 }
