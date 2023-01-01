@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Holder extends Model
@@ -19,12 +21,12 @@ class Holder extends Model
         'agency_id'
     ];
 
-    public function accounts()
+    public function accounts() : HasMany
     {
         return $this->hasMany(Account::class);
     }
 
-    public function agency()
+    public function agency() : BelongsTo
     {
         return $this->belongsTo(Agency::class);
     }
