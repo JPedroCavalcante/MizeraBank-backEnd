@@ -17,7 +17,8 @@ class DeleteHolderService
     {
         $holder = $this->holder->where('id', $id)->firstOrFail();
 
-        $holder->accounts->delete();
+        $holder->accounts()->delete();
+
         return $holder->delete();
     }
 }

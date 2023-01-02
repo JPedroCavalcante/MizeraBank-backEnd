@@ -11,12 +11,21 @@ use App\Services\Holder\DeleteHolderService;
 use App\Services\Holder\IndexHolderService;
 use App\Services\Holder\StoreHolderService;
 use App\Services\Holder\UpdateHolderService;
+use App\Services\Permission\CheckPermissionService;
 use Illuminate\Http\Request;
 
 class HolderController extends Controller
 {
+    private CheckPermissionService $checkPermissionService;
+
+    public function __construct(CheckPermissionService $checkPermissionService)
+    {
+        $this->checkPermissionService = $checkPermissionService;
+    }
+
     public function index(IndexHolderService $indexHolderService, Request $request)
     {
+        $this->checkPermissionService->run('index-holders');
         $holders = $indexHolderService->run($request);
         return HolderResource::collection($holders);
     }
@@ -24,10 +33,10 @@ class HolderController extends Controller
 
     public function store(
         StoreHolderRequest $storeHolderRequest,
-        StoreHolderService $storeHolderService,
-        Holder             $holder
+        StoreHolderService $storeHolderService
     )
     {
+        $this->checkPermissionService->run('store-holder');
         $data = $storeHolderRequest->validated();
         $holder = $storeHolderService->run($data);
 
@@ -40,6 +49,7 @@ class HolderController extends Controller
         Holder              $holder
     )
     {
+        $this->checkPermissionService->run('update-holder');
         $data = $updateHolderRequest->validated();
         $holder = $updateHolderService->run($data, $holder);
         return response(new HolderResource($holder));
@@ -47,6 +57,7 @@ class HolderController extends Controller
 
     public function destroy(DeleteHolderService $deleteHolderService, $id)
     {
+        $this->checkPermissionService->run('delete-holder');
         $deleteHolderService->run($id);
         return response()->json([], 204);
     }

@@ -11,15 +11,23 @@ use App\Services\Agency\DeleteAgencyService;
 use App\Services\Agency\IndexAgencyService;
 use App\Services\Agency\StoreAgencyService;
 use App\Services\Agency\UpdateAgencyService;
+use App\Services\Permission\CheckPermissionService;
 use Illuminate\Http\Request;
 
 class AgencyController extends Controller
 {
+    private CheckPermissionService $checkPermissionService;
+
+    public function __construct(CheckPermissionService $checkPermissionService)
+    {
+        $this->checkPermissionService = $checkPermissionService;
+    }
 
     public function index(IndexAgencyService $indexAgencyService, Request $request)
     {
-        $Agencies = $indexAgencyService->run($request);
-        return AgencyResource::collection($Agencies);
+        $this->checkPermissionService->run('index-agencies');
+        $agencies = $indexAgencyService->run($request);
+        return AgencyResource::collection($agencies);
     }
 
     public function store(
@@ -27,6 +35,7 @@ class AgencyController extends Controller
         StoreAgencyService $storeAgencyService
     )
     {
+        $this->checkPermissionService->run('store-agency');
         $data = $storeAgencyRequest->validated();
         $agency = $storeAgencyService->run($data);
         return response(new AgencyResource($agency));
@@ -38,6 +47,7 @@ class AgencyController extends Controller
         Agency              $agency,
     )
     {
+        $this->checkPermissionService->run('update-agency');
         $data = $updateAgencyRequest->validated();
         $agency = $updateAgencyService->run($data, $agency);
         return response(new AgencyResource($agency));
@@ -45,6 +55,7 @@ class AgencyController extends Controller
 
     public function destroy(DeleteAgencyService $deleteAgencyService ,$id)
     {
+        $this->checkPermissionService->run('delete-agency');
         $deleteAgencyService->run($id);
         return response()->json([], 204);
     }

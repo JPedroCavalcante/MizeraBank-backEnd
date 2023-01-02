@@ -10,9 +10,16 @@ use App\Services\Auth\IndexService;
 use App\Services\Auth\LoginService;
 use App\Services\Auth\LogoutService;
 use App\Services\Auth\RegisterService;
+use App\Services\Permission\CheckPermissionService;
 
 class AuthController extends Controller
 {
+    private CheckPermissionService $checkPermissionService;
+
+    public function __construct(CheckPermissionService $checkPermissionService)
+    {
+        $this->checkPermissionService = $checkPermissionService;
+    }
 
     public function index(IndexService $indexService)
     {
@@ -22,6 +29,7 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $registerRequest, RegisterService $registerService)
     {
+        $this->checkPermissionService->run('register-user');
         $data = $registerRequest->validated();
         $user = $registerService->run($data);
         return response($user);

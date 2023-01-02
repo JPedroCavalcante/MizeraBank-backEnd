@@ -20,11 +20,13 @@ class UserSeeder extends Seeder
                 'name' => 'pedro',
                 'email' => 'pedro@gmail.com',
                 'password' => bcrypt('12345678'),
+                'role_id' => 1,
             ],
             [
                 'name' => 'joao',
                 'email' => 'joao@gmail.com',
                 'password' => bcrypt('12345678'),
+                'role_id' => 2,
             ]
         ]);
     }

@@ -15,29 +15,18 @@ class Role extends Model
     use SoftDeletes;
 
     protected $fillable = [
-      'name',
-      'description',
+        'name',
+        'description',
     ];
 
-    public function user() : HasMany
+    public function user(): HasMany
     {
         return $this->hasMany(User::class);
     }
 
-    public function permissions() : BelongsToMany
+    public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class);
     }
 
-    public function hasPermissionTo(string $permission): bool
-    {
-        return $this->permissions()->where('permission', $permission)->exists();
-    }
-
-    public function givePermissionTo(string $permission): void
-    {
-        $p = Permission::query()->firstOrCreate(compact('permission'));
-
-        $this->permissions()->attach($p);
-    }
 }

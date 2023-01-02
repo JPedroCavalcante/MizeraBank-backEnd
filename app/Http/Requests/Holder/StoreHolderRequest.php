@@ -28,7 +28,7 @@ class StoreHolderRequest extends FormRequest
             'identifier' => ['required', 'string', 'min:11', 'unique:holders'],
             'birth_date' => ['required', 'date'],
             'phone' => ['required', 'string'],
-            'agency_id' => ['required', 'string', 'exists:agency,id']
+            'agency_id' => ['required', 'string', 'exists:agencies,id']
         ];
     }
 

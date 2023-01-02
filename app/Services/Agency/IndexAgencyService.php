@@ -13,8 +13,8 @@ class IndexAgencyService
 
         return Agency::where(function ($query) use ($search) {
             if ($search) {
-                $query->where('name', 'LIKE', "%{$search}%");
-                $query->Orwhere('id', $search);
+                $query->where('name', 'LIKE', "%{$search}%")
+                      ->Orwhere('id', $search);
             }
         })->get();
     }
