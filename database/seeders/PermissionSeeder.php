@@ -12,7 +12,7 @@ class PermissionSeeder extends Seeder
     {
         DB::table('permissions')->insert([
 
-                // Permissões usuários 1-4
+                // Permissões usuários
                 [
                     'name' => 'index-users',
                     'description' => 'Listar usuários',
@@ -30,7 +30,7 @@ class PermissionSeeder extends Seeder
                     'description' => 'Deletar usuário',
                 ],
 
-                // Permissões conta 5-8
+                // Permissões conta
 
                 [
                     'name' => 'index-accounts',
@@ -48,7 +48,7 @@ class PermissionSeeder extends Seeder
                     'name' => 'delete-account',
                     'description' => 'Deletar conta',
                 ],
-                // Permissões agência 9-12
+                // Permissões agência
                 [
                     'name' => 'index-agencies',
                     'description' => 'Listar agências',
@@ -66,7 +66,7 @@ class PermissionSeeder extends Seeder
                     'description' => 'Deletar usuário',
                 ],
 
-                // Permissões titular 13-16
+                // Permissões titular
 
                 [
                     'name' => 'index-holders',
@@ -85,7 +85,7 @@ class PermissionSeeder extends Seeder
                     'description' => 'Deletar titular',
                 ],
 
-                // Permissões role 17-21
+                // Permissões cargo
 
                 [
                     'name' => 'set-permissions-for-role',
