@@ -39,7 +39,7 @@ class AuthController extends Controller
     {
         $data = $loginRequest->validated();
         $login = $loginService->run($data);
-        return response()->json($login);
+        return response($login);
 
     }
 

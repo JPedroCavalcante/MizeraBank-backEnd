@@ -16,6 +16,7 @@ class LoginService
 
         $user = auth()->user();
         $user->tokens()->delete();
-        return $user->createToken('API Token')->plainTextToken;
+        $user->token = $user->createToken('API Token')->plainTextToken;
+        return $user;
     }
 }
