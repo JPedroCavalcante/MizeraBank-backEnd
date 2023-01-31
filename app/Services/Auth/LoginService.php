@@ -2,8 +2,10 @@
 
 namespace App\Services\Auth;
 
+use App\Exceptions\InvalidCredentialsException;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class LoginService
 {
@@ -11,7 +13,7 @@ class LoginService
     public function run($data)
     {
         if (!Auth::attempt($data)) {
-            return Response::denyAsNotFound('Credenciais incorretas!!', 401);
+            throw new InvalidCredentialsException();
         }
 
         $user = auth()->user();
